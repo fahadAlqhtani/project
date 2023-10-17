@@ -1,74 +1,82 @@
 
-public class Contact implements Comparable {
-	private String name,phone_number,email_address,address,birthday,notes;
+public class Contact implements Comparable<Contact> {
+	private String fname,lname, phone, email, address, birthday, notes;
+	
 
-
-	public String getName() {
-		return name;
+	public int compareTo(Contact otherContact) {
+		String name1=fname+" "+lname;
+		String name2=otherContact.getFname()+" "+otherContact.getLname();
+		
+		return name1.compareTo(name2);
 	}
 
+	// Setters & Getters:
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	
 
 	public String getPhone_number() {
-		return phone_number;
+		return phone;
 	}
 
+	public String getFname() {
+		return fname;
+	}
+
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
+
+	public String getLname() {
+		return lname;
+	}
+
+	public void setLname(String lname) {
+		this.lname = lname;
+	}
 
 	public void setPhone_number(String phone_number) {
-		this.phone_number = phone_number;
+		this.phone = phone_number;
 	}
-
 
 	public String getEmail_address() {
-		return email_address;
+		return email;
 	}
-
 
 	public void setEmail_address(String email_address) {
-		this.email_address = email_address;
+		this.email = email_address;
 	}
-
 
 	public String getAddress() {
 		return address;
 	}
 
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
 
 	public String getBirthday() {
 		return birthday;
 	}
 
-
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
-
 
 	public String getNotes() {
 		return notes;
 	}
 
-
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-
-
-	public int compareTo(Object o) {
+	public void tostring() {
+		System.out.println("Name: "+getFname()+" "+getLname());
+		System.out.println("phone Number: "+getPhone_number());
+		System.out.println("Email Adress : "+getEmail_address());
+		System.out.println("Adress: "+getAddress());
+		System.out.println("Birthday: "+getBirthday());
+		System.out.println("Notes: "+getNotes());
 		
-		if(o instanceof Contact) 
-			if(((Contact)o).getName().equalsIgnoreCase(this.name)) 
-				return 1;
-			return -1;
 	}
 
 }

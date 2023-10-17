@@ -1,51 +1,102 @@
 
-public class LinkedList <T> implements list<T> {
+public class LinkedList<T> {
 	private Node<T> head;
 	private Node<T> current;
 
-	public LinkedList () {
+	public LinkedList() {
 		head = current = null;
 	}
 
-	public boolean empty () {
+	public boolean empty() {
 		return head == null;
+
 	}
 
-	public boolean last () {
+	public boolean last() {
 		return current.next == null;
 	}
-	public boolean full () {
+
+	public boolean full() {
 		return false;
 	}
-	public void findFirst () {
+
+	public void findFirst() {
 		current = head;
 	}
-	public void findNext () {
+
+	public void findNext() {
 		current = current.next;
 	}
-	public T retrieve () {
+
+	public T retrieve() {
 		return current.data;
 	}
-	public void update (T val) {
+
+	public void update(T val) {
 		current.data = val;
 	}
-	public void insert (T val) {
-		Node<T> tmp;
+
+	public boolean insertBySorting(T data) {
+		Node<T> temp;
 		if (empty()) {
-			current = head = new Node<T> (val);
+			head = current = new Node<T>(data);
+			temp = current;
+			return true;
 		}
+
 		else {
-			tmp = current.next;
-			current.next = new Node<T> (val);
-			current = current.next;
-			current.next = tmp;
+			current = head;
+			temp = current;
+
+			while (temp.next != null && ((Comparable<T>) data).compareTo((T) ((Comparable<T>) temp.data)) > 0) {
+				current = temp;
+				temp = temp.next;
+			}
+
+			if (((Comparable<T>) data).compareTo((T) ((Comparable<T>) temp.data)) < 0) {
+
+				if (head == temp) {
+
+					Node<T> newNode = new Node<T>(data);
+					newNode.next = temp;
+					head = newNode;
+					current = head;
+					return true;
+				}
+
+				Node<T> newNode = new Node<T>(data);
+				current.next = newNode;
+				newNode.next = temp;
+				current = newNode;
+				return true;
+			} else if (((Comparable<T>) data).compareTo((T) ((Comparable<T>) temp.data)) == 0)
+				return false;
+			else {
+
+				Node<T> newNode = new Node<T>(data);
+				temp.next = newNode;
+				current = newNode;
+				return true;
+			}
+
 		}
 	}
-	public void remove () {
+
+	
+	public void print() {
+		current = head;
+		while (current != null) {
+			((Contact) current.data).tostring();;
+			current = current.next;
+
+		}
+	}	
+
+
+	public void remove() {
 		if (current == head) {
 			head = head.next;
-		}
-		else {
+		} else {
 			Node<T> tmp = head;
 
 			while (tmp.next != current)
@@ -59,6 +110,4 @@ public class LinkedList <T> implements list<T> {
 		else
 			current = current.next;
 	}
-
-
 }
